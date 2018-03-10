@@ -81,7 +81,7 @@ for reservation in response['Reservations']:
             instance_id = instance["InstanceId"]
             manager_passcodes[instance_id] = manager_passcode
             instance_state = instance["State"]["Name"]
-            if instance_state != "pending":
+            if instance_state != "pending" and instance_state != "stopping" and instance_state != "terminated":
                 print("<tr><td><input type=\"radio\" name=\"target_instance_id\" value=\"" + instance_id + "\" />" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td></tr>")
             else:
                 print("<tr><td>" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td></tr>")
