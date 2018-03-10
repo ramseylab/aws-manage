@@ -92,8 +92,8 @@ print("<p><input type=\"radio\" name=\"command\" value=\"start\" />Start instanc
 print("<p><input type=\"radio\" name=\"command\" value=\"stop\" />Stop instance</p>")
 print("<p>Enter Management Passcode for your instance here: <input type=\"text\" name=\"manager_passcode\" /></p>")
 
-print("<p><input type=\"submit\" /></p>")
-print("<p><input type=\"reset\" value=\"clear\" /></p>")
+print("<p><input type=\"submit (this changes instance state!)\" /></p>")
+print("<p><input type=\"reset\" value=\"clear form (no refresh)\" /></p>")
 print("<a href=\"/cgi-bin/manage-instances-cgi.py\">reresh page</a></p>")
 print("</form>")
 print("</body>")
