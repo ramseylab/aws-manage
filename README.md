@@ -16,4 +16,5 @@ Manage Ramsey Lab EC2 instances
 - Make sure that user `www-data` has `~/.local/bin` in the path (example `.bash_profile` provided as `www-data.bash_profile`)
 - IMPORTANT: set up password protection for directory `/var/www/html` using `htpasswd -c /var/www/html/.htpasswd ramseylab`
 - install the CGI script `manage-instances-cgi.py` into `/var/www/html/cgi-bin`
+- need a log file directory `/var/log/uwsgi` that user `www-data` can write into
 - configure `aws` using `aws configure`
