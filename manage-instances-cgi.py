@@ -32,12 +32,10 @@ form = cgi.FieldStorage()
 if "command" in form:
     command = form["command"].value
     if "target_instance_id" not in form:
-        print("<h1>Error</h1>")
-        print("<p>need to specify the field target_instance_id</p>")
+        print("<h2>Error: need to specify the field target_instance_id</h2>")
     else:
         if "manager_passcode" not in form:
-            print("<h1>Error</h1>")
-            print("<p>need to specify the manager passcode</p>")
+            print("<h2>Error: need to specify the manager passcode</h2>")
         else:
             target_instance_id = form["target_instance_id"]
             manager_passcode = form["manager_passcode"]
@@ -47,23 +45,21 @@ if "command" in form:
             for tag in instance_tags:
                 if tag["Key"] == "ManagerPasscode":
                     if tag["Value"] != manager_passcode:
-                        print("<h1>Passcode not correct</h1>")
+                        print("<h2>Sorry:  Passcode not correct</h2>")
                     else:
                         if command == "start":
                             if instance_state != "stopped":
-                                print("<h1>Error</h1>")
-                                print("<p>Instance is not stopped, so you cannot start it</p>")
+                                print("<h2>Error: Instance is not stopped, so you cannot start it</h2>")
                             else:
                                 ec2.start_instances(InstanceIds=[target_instance_id])
                         else:
                             if command == "stop":
                                 if instance_state != "running":
-                                    print("<h1>Error</h1>")
-                                    print("<p>Instance is not running, so you cannot stop it</p>")
+                                    print("<h2>Error: Instance is not running, so you cannot stop it</h2>")
                                 else:
                                     ec2.start_instances(InstanceIds=[target_instance_id])
            
-print("<table>")
+print("<table border=\"1\">")
 response = ec2.describe_instances()
 result['list_data'] = []
 manager_passcode = ''
