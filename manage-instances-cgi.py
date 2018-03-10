@@ -93,7 +93,7 @@ print("<p><input type=\"radio\" name=\"command\" value=\"stop\" />Stop instance<
 print("<p>Enter Management Passcode for your instance here: <input type=\"text\" name=\"manager_passcode\" /></p>")
 
 print("<p><input type=\"submit\" /></p>")
-
+print("<p><input type=\"reset\" value=\"refresh\" /></p>")
 print("</form>")
 print("</body>")
 print("</html>")
