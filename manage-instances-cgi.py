@@ -28,7 +28,7 @@ print("</head>")
 print("<body>")
 print("<h1>Ramsey Lab EC2 Instance Manager</h1>")
 form = cgi.FieldStorage()
-print("<form method=\"GET\" action=\"/cgi-bin/manage-instances-cgi.py\">")
+print("<form method=\"get\" action=\"/cgi-bin/manage-instances-cgi.py\">")
 if "command" in form:
     command = form["command"].value
     if "target_instance_id" not in form:
