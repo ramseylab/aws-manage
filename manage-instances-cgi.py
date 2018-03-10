@@ -39,7 +39,7 @@ if "command" in form:
         else:
             target_instance_id = form["target_instance_id"]
             target_manager_passcode = form["manager_passcode"]
-            instance_info = ec2.describe_instance(InstanceIds=[target_instance_id])["Reservations"][0]["Instances"][0]
+            instance_info = ec2.describe_instances(InstanceIds=[target_instance_id])["Reservations"][0]["Instances"][0]
             instance_state = instance_info["State"]["Name"]
             instance_tags = instance_info["Tags"]
             manager_passcode = ""
