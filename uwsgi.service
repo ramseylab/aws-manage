@@ -8,6 +8,8 @@ RestartSec=5
 KillSignal=SIGQUIT
 Type=notify
 NotifyAccess=all
+User=www-data
+Group=www-data
 
 [Install]
 WantedBy=multi-user.target
