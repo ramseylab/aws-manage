@@ -63,7 +63,7 @@ response = ec2.describe_instances()
 result['list_data'] = []
 manager_passcode = ''
 manager_passcodes = dict()
-print("<tr><td><em>Instance Name</em></td><td><em>Instance ID</em></td><td><em>Instance State</em></td></tr>")
+print("<tr><td><em>Instance Name</em></td><td><em>Instance State</em></td><td><em>Instance ID</em></td><td>Instance Type</td></tr>")
 for reservation in response['Reservations']:
     for instance in reservation['Instances']:
         instance_tags = instance['Tags']
@@ -81,10 +81,11 @@ for reservation in response['Reservations']:
             instance_id = instance["InstanceId"]
             manager_passcodes[instance_id] = manager_passcode
             instance_state = instance["State"]["Name"]
+            instance_type = instance["InstanceType"]
             if instance_state != "pending" and instance_state != "stopping" and instance_state != "terminated":
-                print("<tr><td><input type=\"radio\" name=\"target_instance_id\" value=\"" + instance_id + "\" />" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td></tr>")
+                print("<tr><td><input type=\"radio\" name=\"target_instance_id\" value=\"" + instance_id + "\" />" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
             else:
-                print("<tr><td>" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td></tr>")
+                print("<tr><td>" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
             
 print("</table>")
 
