@@ -10,7 +10,7 @@ Manage Ramsey Lab EC2 instances
 - configure uwsgi by installing `uwsgi-cgi-py.ini` into `/etc/uwsgi`)
 - Set up systemd to run `uwsgi` by copying the config file `uwsgi.service` to `/etc/systemd/system`.
 - Install python3 and pip3
-- Make a home directory for user `www-data`
+- Make a home directory `/home/www-data` for user `www-data` and set it to ownership `www-data.www-data`
 - Using pip3, install `boto3` python package under local user `www-data`
 - Using pip3, install `awscli` python package under local user `www-data`
 - Make sure that user `www-data` has `~/.local/bin` in the path (example `.bash_profile` provided as `www-data.bash_profile`)
