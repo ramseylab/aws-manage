@@ -37,8 +37,8 @@ if "command" in form:
         if "manager_passcode" not in form:
             print("<h2>Error: need to specify the manager passcode</h2>")
         else:
-            target_instance_id = form["target_instance_id"]
-            target_manager_passcode = form["manager_passcode"]
+            target_instance_id = form["target_instance_id"].value
+            target_manager_passcode = form["manager_passcode"].value
             instance_info = ec2.describe_instances(InstanceIds=[target_instance_id])["Reservations"][0]["Instances"][0]
             instance_state = instance_info["State"]["Name"]
             instance_tags = instance_info["Tags"]
