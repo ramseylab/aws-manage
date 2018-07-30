@@ -25,3 +25,10 @@ Manage Ramsey Lab EC2 instances
 
         service nginx start
         service uwsgi start
+
+- Troubleshooting:
+
+    - 503 Bad Gateway error:
+    
+            service uwsgi start
+            
