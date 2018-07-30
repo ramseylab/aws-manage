@@ -18,3 +18,10 @@ Manage Ramsey Lab EC2 instances
 - install the CGI script `manage-instances-cgi.py` into `/var/www/html/cgi-bin`
 - need a log file directory `/var/log/uwsgi` that user `www-data` can write into
 - configure `aws` using `aws configure`
+
+## Running and maintaining the system:
+
+- Cold start:
+
+        service nginx start
+        service uwsgi start
