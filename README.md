@@ -26,6 +26,10 @@ Manage Ramsey Lab EC2 instances
         service nginx start
         service uwsgi start
 
+- URL for accessing the system:
+
+        http://YOUR_INSTANCE_IP/cgi-bin/manage-instances-cgi.py
+        
 - Troubleshooting:
 
     - 503 Bad Gateway error:
