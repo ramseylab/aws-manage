@@ -59,6 +59,9 @@ sudo chown www-data.www-data /var/log/uwsgi
 # (when prompted, specify the same AWS zone that your instances are normally in; leave the "Default output format" as [None]):
 sudo su - www-data -c "aws configure"
 
+# Start the services
+sudo service nginx start
+sudo service uwsgi start
 
 
 
