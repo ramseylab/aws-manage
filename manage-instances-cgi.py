@@ -30,34 +30,36 @@ if "command" in form:
             target_manager_passcode = form["manager_passcode"].value
             instance_info = ec2.describe_instances(InstanceIds=[target_instance_id])["Reservations"][0]["Instances"][0]
             instance_state = instance_info["State"]["Name"]
-            instance_tags = instance_info["Tags"]
-            manager_passcode = ""
-            for tag in instance_tags:
-                if tag["Key"] == "ManagerPasscode":
-                    manager_passcode = tag["Value"]
-            if manager_passcode == "":
-                print("<h2>Warning: instance has no manager passcode set</h2>")
-            if manager_passcode != target_manager_passcode:
-                print("<h2>Sorry:  Passcode not correct</h2>")
-            else:
-                if command == "start":
-                    if instance_state != "stopped":
-                        print("<h2>Error: Instance is not currently stopped, so I can not start it.</h2>")
-                    else:
-                        try:
-                            ec2.start_instances(InstanceIds=[target_instance_id])
-                        except:
-                            print("<h2>Error starting instance: " + str(sys.exec_info()[0]))
+            instance_tags = instance_info.get("Tags", None)
+            if instance_tags is not None:
+                manager_passcode = ""
+                for tag in instance_tags:
+                    if tag["Key"] == "ManagerPasscode":
+                        manager_passcode = tag["Value"]
+                if manager_passcode == "":
+                    print("<h2>Warning: instance has no manager passcode set</h2>")
+                if manager_passcode != target_manager_passcode:
+                    print("<h2>Sorry:  Passcode not correct</h2>")
                 else:
-                    if command == "stop":
-                        if instance_state != "running":
-                            print("<h2>Error: Instance is not currently running, so I can not stop it.</h2>")
+                    if command == "start":
+                        if instance_state != "stopped":
+                            print("<h2>Error: Instance is not currently stopped, so I can not start it.</h2>")
                         else:
                             try:
-                                ec2.stop_instances(InstanceIds=[target_instance_id])
+                                ec2.start_instances(InstanceIds=[target_instance_id])
                             except:
-                                print("<h2>Error stopping instance: " + str(sys.exec_info()[0]))
-           
+                                print("<h2>Error starting instance: " + str(sys.exec_info()[0]))
+                    else:
+                        if command == "stop":
+                            if instance_state != "running":
+                                print("<h2>Error: Instance is not currently running, so I can not stop it.</h2>")
+                            else:
+                                try:
+                                    ec2.stop_instances(InstanceIds=[target_instance_id])
+                                except:
+                                    print("<h2>Error stopping instance: " + str(sys.exec_info()[0]))
+            else:
+                print("<h2>Error: target instance does not have any tags associated with it</h2>")             
 print("<table border=\"1\">")
 response = ec2.describe_instances()
 result['list_data'] = []
@@ -66,26 +68,27 @@ manager_passcodes = dict()
 print("<tr><td><em>Instance Name</em></td><td><em>Instance State</em></td><td><em>Instance ID</em></td><td>Instance Type</td></tr>")
 for reservation in response['Reservations']:
     for instance in reservation['Instances']:
-        instance_tags = instance['Tags']
-        keep_instance = False
-        for tag in instance_tags:
-            if tag['Key'] == 'Customer' and tag['Value'] == 'ramseyst':
-                keep_instance = True
-            else:
-                if tag['Key'] == 'Name':
-                    instance_name = tag['Value']
+        instance_tags = instance.get('Tags', None)
+        if instance_tags is not None:
+            keep_instance = False
+            for tag in instance_tags:
+                if tag['Key'] == 'Customer' and tag['Value'] == 'ramseyst':
+                    keep_instance = True
                 else:
-                    if tag['Key'] == 'ManagerPasscode':
-                        manager_passcode = tag['Value']
-        if keep_instance:
-            instance_id = instance["InstanceId"]
-            manager_passcodes[instance_id] = manager_passcode
-            instance_state = instance["State"]["Name"]
-            instance_type = instance["InstanceType"]
-            if instance_state != "pending" and instance_state != "stopping" and instance_state != "terminated":
-                print("<tr><td><input type=\"radio\" name=\"target_instance_id\" value=\"" + instance_id + "\" />" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
-            else:
-                print("<tr><td>" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
+                    if tag['Key'] == 'Name':
+                        instance_name = tag['Value']
+                    else:
+                        if tag['Key'] == 'ManagerPasscode':
+                            manager_passcode = tag['Value']
+            if keep_instance:
+                instance_id = instance["InstanceId"]
+                manager_passcodes[instance_id] = manager_passcode
+                instance_state = instance["State"]["Name"]
+                instance_type = instance["InstanceType"]
+                if instance_state != "pending" and instance_state != "stopping" and instance_state != "terminated":
+                    print("<tr><td><input type=\"radio\" name=\"target_instance_id\" value=\"" + instance_id + "\" />" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
+                else:
+                    print("<tr><td>" + instance_name + "</td><td>" + instance_state + "</td><td>" + instance_id + "</td><td>" + instance_type + "</td></tr>")
             
 print("</table>")
 
