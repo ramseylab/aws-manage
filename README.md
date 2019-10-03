@@ -6,6 +6,11 @@ Manage Ramsey Lab EC2 instances
 This is a simple python/CGI-based manager for AWS EC2 instances. It currently
 works only in a single AWS zone. It is designed to run in Ubuntu 18.04 on an EC2
 instance (no other method of deployment or host OS is tested or supported).
+Note that the EC2 instance that is hosting the `aws-manager` does not need to
+be in the same AWS zone as the zone that is being managed by the `aws-manager`.
+For example, we currently host an `aws-manager` software installation in
+`us-east`, and that `aws-manager` installation actually manages the lab's EC2
+instances in `us-west-2`.
 
 ## EC2 instance details:
 
