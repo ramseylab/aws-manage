@@ -25,6 +25,8 @@ software.
 
 Log into your `t2.micro` instance as user `ubuntu` and perform these steps:
 
+    sudo apt-get update
+    git clone https://github.com/ramseylab/aws-manage.git
     ./aws-manage/run-setup.sh
 
 ## Running and maintaining the system:
