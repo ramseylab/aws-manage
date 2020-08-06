@@ -21,7 +21,7 @@ software.
 - AMI: Ubuntu 18.04
 - security group:  allow inbound traffic to TCP ports 22 and 80
 
-## Installation instructions (for Ubuntu 16.04):
+## Installation instructions (for Ubuntu 18.04):
 
 Log into your `t2.micro` instance as user `ubuntu` and perform these steps:
 
