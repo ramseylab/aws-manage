@@ -2,6 +2,8 @@
 # This script should be run as user `ubuntu` on a clean Ubuntu 18.04 AMI OS in AWS.
 # Not tested with any other setup conditions, YMMV.
 
+set -o nounset -o pipefail -o errexit
+
 # Update `apt-get`
 sudo apt-get update -y
 
