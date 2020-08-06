@@ -28,6 +28,7 @@ if command == "list":
                 else:
                     if tag['Key'] == 'Name':
                        instance_name = tag['Value']
+                       keep_instance = True
             if keep_instance:
                 result['list_data'].append({'instance-id': instance['InstanceId'],
                                             'instance-state': instance['State']['Name'],
