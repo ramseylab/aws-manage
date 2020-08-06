@@ -80,6 +80,7 @@ for reservation in response['Reservations']:
                     else:
                         if tag['Key'] == 'ManagerPasscode':
                             manager_passcode = tag['Value']
+                            keep_instance = True
             if keep_instance:
                 instance_id = instance["InstanceId"]
                 manager_passcodes[instance_id] = manager_passcode
